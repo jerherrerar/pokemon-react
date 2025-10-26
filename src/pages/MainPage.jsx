@@ -3,10 +3,3 @@ const MainPage = () => {
 };
 
 export default MainPage;
-
-// const HeaderComponent = () => {
-//   return (
-//     <span>HeaderComponent</span>
-//   );
-// }
-// export default HeaderComponent

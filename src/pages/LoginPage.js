@@ -1,19 +1,29 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import { useAuth } from "../AuthContext";
+import { login as backendLogin } from "../apiService";
 
 function LoginPage() {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    // In a real app, send credentials to backend, get token
-    const mockToken = "some_jwt_token"; // Replace with actual token from API
-    login(mockToken);
-    navigate("/dashboard");
+    try {
+      const data = await backendLogin({ username, password });
+      if ("auth_token" in data) {
+        login(data.auth_token);
+        const from = location.state?.from?.pathname || "/";
+        navigate(from, { replace: true });
+      } else {
+        alert(data.error_description);
+      }
+    } catch (err) {
+      console.error(err);
+    }
   };
 
   return (
