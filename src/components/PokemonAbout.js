@@ -2,8 +2,9 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import heightIcon from "../assets/heightIcon.png";
-import weightIcon from "../assets/weightIcon.png";
+import heightIcon from "../assets/icons/heightIcon.png";
+import weightIcon from "../assets/icons/weightIcon.png";
+import { capitalizeFirstLetter } from "../utils/strings";
 
 const Attribute = ({ desc, value, icon }) => {
   return (
@@ -17,11 +18,7 @@ const Attribute = ({ desc, value, icon }) => {
     >
       <Box>
         {value.map((val) => (
-          <Stack
-            direction="row"
-            key={val}
-            sx={{ alignItems: "center", padding: 0 }}
-          >
+          <Stack direction="row" key={val} sx={{ alignItems: "center" }}>
             {icon && (
               <img
                 src={icon}
@@ -33,7 +30,9 @@ const Attribute = ({ desc, value, icon }) => {
                 }}
               />
             )}
-            <Typography sx={{ fontSize: 10 }}>{val}</Typography>
+            <Typography sx={{ fontSize: 10, marginLeft: 1 }}>
+              {capitalizeFirstLetter(val)}
+            </Typography>
           </Stack>
         ))}
       </Box>

@@ -3,7 +3,7 @@
 import { useNavigate } from "react-router-dom";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import backIcon from "../assets/backIcon.png";
+import backIcon from "../assets/icons/backIcon.png";
 import { capitalizeFirstLetter } from "../utils/strings";
 
 const PokemonTitle = ({ name, id }) => {

@@ -1,6 +1,5 @@
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import Box from "@mui/material/Box";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
@@ -13,6 +12,7 @@ import DescriptionText from "../components/DescriptionText";
 import PokemonAbout from "../components/PokemonAbout";
 import PokemonStats from "../components/PokemonStats";
 import PokemonTitle from "../components/PokemonTitle";
+import Main from "../layout/Main";
 
 function DetailPage() {
   const { id } = useParams();
@@ -20,7 +20,7 @@ function DetailPage() {
   const navigate = useNavigate();
   const [pokemon, setPokemon] = useState(location.state?.pokemon);
   const [species, setSpecies] = useState(null);
-  const [mainColor, setMainColor] = useState("#000000");
+  const [mainColor, setMainColor] = useState("#EFEFEF");
   const [loading, setLoading] = useState(!location.state?.pokemon);
   const [error, setError] = useState(null);
 
@@ -37,7 +37,7 @@ function DetailPage() {
         setSpecies(speciesData);
 
         const primaryType = pokemonData.types[0].type.name;
-        setMainColor(PokemonTypesColor[primaryType] || "#000000");
+        setMainColor(PokemonTypesColor[primaryType] || "#EFEFEF");
       } catch (err) {
         console.error(err);
         setError(err);
@@ -55,94 +55,61 @@ function DetailPage() {
   }
 
   return (
-    <Box
-      sx={{
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        minHeight: "100vh"
-      }}
-    >
+    <Main color={mainColor}>
+      <PokemonTitle name={pokemon.name} id={pokemon.id} />
+      <CardMedia
+        component="img"
+        sx={{
+          width: 200,
+          position: "absolute",
+          left: "50%",
+          transform: "translateX(-50%)",
+          top: 115
+        }}
+        image={pokemon.sprites.other["official-artwork"].front_default}
+        alt={pokemon.name}
+      />
       <Card
         sx={{
-          width: 360,
-          height: 640,
-          backgroundColor: mainColor,
-          display: "flex",
-          flexDirection: "column"
+          marginTop: "auto",
+          borderRadius: 8
         }}
         variant="outlined"
       >
         <CardContent
           sx={{
-            padding: 0.5,
+            alignItems: "center",
             display: "flex",
             flexDirection: "column",
-            flex: 1,
-            "&:last-child": { paddingBottom: 0.5 }
+            gap: 3,
+            paddingTop: 8
           }}
         >
-          <PokemonTitle name={pokemon.name} id={pokemon.id} />
-          <CardMedia
-            component="img"
-            sx={{
-              width: 200,
-              position: "absolute",
-              left: "50%",
-              transform: "translateX(-50%)",
-              top: 200
-            }}
-            image={pokemon.sprites.other["official-artwork"].front_default}
-            alt={pokemon.name}
-          />
-          <Card
-            sx={{
-              marginTop: "auto",
-              borderRadius: 8
-            }}
-            variant="outlined"
+          <Stack
+            direction="row"
+            spacing={1}
+            sx={{ justifyContent: "center", width: "100%" }}
           >
-            <CardContent
-              sx={{
-                alignItems: "center",
-                display: "flex",
-                flexDirection: "column",
-                gap: 3,
-                paddingTop: 8
-              }}
-            >
-              <Stack
-                direction="row"
-                spacing={1}
-                sx={{ justifyContent: "center", width: "100%" }}
-              >
-                {pokemon.types.map((type) => (
-                  <PokemonTypeChip key={type.slot} name={type.type.name} />
-                ))}
-              </Stack>
-              <SubtitleText text="About" color={mainColor} />
-              <PokemonAbout
-                weight={pokemon.weight}
-                height={pokemon.height}
-                abilities={pokemon.abilities}
-              />
-              {species && (
-                <DescriptionText
-                  text={species.flavor_text_entries[0].flavor_text}
-                />
-              )}
-              <SubtitleText text="Base Stats" color={mainColor} />
-              <PokemonStats stats={pokemon.stats} color={mainColor} />
-            </CardContent>
-          </Card>
+            {pokemon.types.map((type) => (
+              <PokemonTypeChip key={type.slot} name={type.type.name} />
+            ))}
+          </Stack>
+          <SubtitleText text="About" color={mainColor} />
+          <PokemonAbout
+            weight={pokemon.weight}
+            height={pokemon.height}
+            abilities={pokemon.abilities}
+          />
+          {species && (
+            <DescriptionText
+              text={species.flavor_text_entries[0].flavor_text}
+            />
+          )}
+          <SubtitleText text="Base Stats" color={mainColor} />
+          <PokemonStats stats={pokemon.stats} color={mainColor} />
         </CardContent>
-        {/* <CardActions>
-          <Button size="small" onClick={() => navigate("/")}>
-            BACK
-          </Button>
-        </CardActions> */}
       </Card>
-    </Box>
+    </Main>
   );
 }
 
