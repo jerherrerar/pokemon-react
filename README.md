@@ -1,3 +1,27 @@
+# Exercise: Generative AI Tools
+
+## Prompt
+
+Implement a Table component for a simple task management system using React(javascript)and MUI components.
+Each task has a title, description, status, and due_date.
+The component is capable of listing, editing, removing and creating tasks.
+To update a task, implement a modal adn update the values.
+Add a button in each row to delete the task.
+Add a button above the table to create a task which opens a modal to add the new values.
+Add form validation when editing and creating.
+Add confirmation when removing.
+Implement tests using jest.
+
+## Tool
+
+Deepseek
+
+## Result
+
+It generated 5 files: the component, a test file, App.js, jest.config and package.json.
+
+You can find them in this repo: /src/genetativeAIToolsExercise
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
