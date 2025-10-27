@@ -4,7 +4,7 @@ import LinearProgress from "@mui/material/LinearProgress";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
 
-import { StatsLabels } from "../utils/constants";
+import { StatsLabels } from "../../utils/constants";
 
 const PokemonStats = ({ stats, color }) => {
   return (

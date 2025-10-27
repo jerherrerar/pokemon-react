@@ -4,17 +4,19 @@ import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
 import CardMedia from "@mui/material/CardMedia";
 import Stack from "@mui/material/Stack";
-import { getPokemonById, getPokemonSpeciesById } from "../apiService";
-import PokemonTypeChip from "../components/PokemonTypeChip";
-import SubtitleText from "../components/SubtitleText";
+import { getPokemonById, getPokemonSpeciesById } from "../services/api";
+import PokemonTypeChip from "../components/pokemon/PokemonTypeChip";
+import SubtitleText from "../components/pokemon/SubtitleText";
 import { PokemonTypesColor } from "../utils/constants";
-import DescriptionText from "../components/DescriptionText";
-import PokemonAbout from "../components/PokemonAbout";
-import PokemonStats from "../components/PokemonStats";
-import PokemonTitle from "../components/PokemonTitle";
+import DescriptionText from "../components/pokemon/DescriptionText";
+import PokemonAbout from "../components/pokemon/PokemonAbout";
+import PokemonStats from "../components/pokemon/PokemonStats";
+import Title from "../components/common/Title";
+import backIcon from "../assets/icons/backIcon.png";
 import Main from "../layout/Main";
+import { capitalizeFirstLetter } from "../utils/strings";
 
-function DetailPage() {
+const DetailPage = () => {
   const { id } = useParams();
   const location = useLocation();
   const navigate = useNavigate();
@@ -23,6 +25,10 @@ function DetailPage() {
   const [mainColor, setMainColor] = useState("#EFEFEF");
   const [loading, setLoading] = useState(!location.state?.pokemon);
   const [error, setError] = useState(null);
+
+  const handleBack = () => {
+    navigate("/");
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -56,7 +62,12 @@ function DetailPage() {
 
   return (
     <Main color={mainColor}>
-      <PokemonTitle name={pokemon.name} id={pokemon.id} />
+      <Title
+        title={capitalizeFirstLetter(pokemon.name)}
+        subtitle={`#${pokemon.id}`}
+        icon={backIcon}
+        action={handleBack}
+      />
       <CardMedia
         component="img"
         sx={{
@@ -111,6 +122,6 @@ function DetailPage() {
       </Card>
     </Main>
   );
-}
+};
 
 export default DetailPage;

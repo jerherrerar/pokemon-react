@@ -1,17 +1,14 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://pokeapi.co/api/v2/";
-
 const apiClient = axios.create({
-  baseURL: API_BASE_URL,
+  baseURL: process.env.REACT_APP_BASE_URL,
   headers: {
     "Content-Type": "application/json"
   }
 });
 
 export const login = async (userData) => {
-  // if (userData.username === "admin" && userData.password === "admin") {
-  if (userData.username && userData.password) {
+  if (userData.username === "admin" && userData.password === "admin") {
     return {
       auth_token: "some_jwt_token"
     };
@@ -19,6 +16,7 @@ export const login = async (userData) => {
   return {
     error_description: "Invalid username or password."
   };
+  // Use whith BE integration
   //   try {
   //     const response = await apiClient.post("/login", userData);
   //     return response.data;
@@ -67,13 +65,3 @@ export const getPokemonSpeciesById = async (id) => {
     throw error;
   }
 };
-
-// export const createUser = async (userData) => {
-//   try {
-//     const response = await apiClient.post("/users", userData);
-//     return response.data;
-//   } catch (error) {
-//     console.error("Error creating user:", error);
-//     throw error;
-//   }
-// };

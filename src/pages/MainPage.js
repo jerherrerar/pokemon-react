@@ -1,16 +1,14 @@
 import { useState, useEffect } from "react";
 import Card from "@mui/material/Card";
 import CardContent from "@mui/material/CardContent";
-import CardMedia from "@mui/material/CardMedia";
 import Grid from "@mui/material/Grid";
-import Stack from "@mui/material/Stack";
 import TextField from "@mui/material/TextField";
-import Typography from "@mui/material/Typography";
 import { useNavigate } from "react-router-dom";
-import { getPokemons } from "../apiService";
+import { getPokemons } from "../services/api";
 import Main from "../layout/Main";
 import pokedexIcon from "../assets/icons/pokedexIcon.png";
-import { capitalizeFirstLetter } from "../utils/strings";
+import Title from "../components/common/Title";
+import PokemonCard from "../components/pokemon/PokemonCard";
 
 const MainPage = () => {
   const [pokemons, setPokemons] = useState([]);
@@ -41,7 +39,6 @@ const MainPage = () => {
     setSearchText(event.target.value.toLowerCase());
   };
 
-  // const displayPokemon = [pokemons[0], pokemons[1]];
   let displayPokemon = searchText
     ? pokemons.filter((el) => el.name.includes(searchText))
     : pokemons;
@@ -51,34 +48,12 @@ const MainPage = () => {
 
   return (
     <Main color="#DC0A2D">
-      <Stack
-        direction="row"
-        sx={{
-          alignItems: "center",
-          width: "100%",
-          padding: 2,
-          gap: 2
-        }}
-      >
-        <img
-          src={pokedexIcon}
-          alt=""
-          style={{
-            width: 20,
-            height: 20,
-            objectFit: "contain"
-          }}
-        />
-        <Typography sx={{ fontSize: 24, color: "#FFFFFF", fontWeight: "bold" }}>
-          Pokedex
-        </Typography>
-      </Stack>
+      <Title title="Pokedex" icon={pokedexIcon} />
       <TextField
         label="Search"
         variant="filled"
         fullWidth
         sx={{
-          borderRadius: 15,
           "& .MuiFilledInput-root": {
             backgroundColor: "#FFFFFF",
             "&:hover": {
@@ -115,47 +90,11 @@ const MainPage = () => {
             }}
           >
             {displayPokemon.map((pokemon) => (
-              <Grid key={pokemon.id}>
-                <Card
-                  sx={{
-                    width: 100,
-                    height: 100
-                  }}
-                  onClick={() => handlePokemonClick(pokemon)}
-                >
-                  <CardContent
-                    sx={{
-                      alignItems: "center",
-                      display: "flex",
-                      flexDirection: "column",
-                      position: "relative"
-                    }}
-                  >
-                    <CardMedia
-                      component="img"
-                      sx={{ height: 70, width: 70, objectFit: "contain" }}
-                      image={
-                        pokemon.sprites.other["official-artwork"].front_default
-                      }
-                      alt={pokemon.name}
-                    />
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ position: "absolute", right: 1 }}
-                    >
-                      #{pokemon.id}
-                    </Typography>
-                    <Typography
-                      variant="body2"
-                      color="text.secondary"
-                      sx={{ position: "absolute", bottom: 8 }}
-                    >
-                      {capitalizeFirstLetter(pokemon.name)}
-                    </Typography>
-                  </CardContent>
-                </Card>
-              </Grid>
+              <PokemonCard
+                key={pokemon.id}
+                pokemon={pokemon}
+                onClick={handlePokemonClick}
+              />
             ))}
           </Grid>
         </CardContent>

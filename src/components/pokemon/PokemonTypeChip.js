@@ -1,7 +1,7 @@
 import Chip from "@mui/material/Chip";
 
-import { PokemonTypesColor } from "../utils/constants";
-import { capitalizeFirstLetter } from "../utils/strings";
+import { PokemonTypesColor } from "../../utils/constants";
+import { capitalizeFirstLetter } from "../../utils/strings";
 
 const PokemonTypeChip = ({ name }) => {
   return (

@@ -2,9 +2,9 @@ import Box from "@mui/material/Box";
 import Divider from "@mui/material/Divider";
 import Stack from "@mui/material/Stack";
 import Typography from "@mui/material/Typography";
-import heightIcon from "../assets/icons/heightIcon.png";
-import weightIcon from "../assets/icons/weightIcon.png";
-import { capitalizeFirstLetter } from "../utils/strings";
+import heightIcon from "../../assets/icons/heightIcon.png";
+import weightIcon from "../../assets/icons/weightIcon.png";
+import { capitalizeFirstLetter } from "../../utils/strings";
 
 const Attribute = ({ desc, value, icon }) => {
   return (

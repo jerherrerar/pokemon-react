@@ -1,4 +1,4 @@
-import { AuthProvider, useAuth } from "./AuthContext";
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import {
   BrowserRouter as Router,
   Outlet,
@@ -25,7 +25,16 @@ const ProtectedRoute = () => {
 function App() {
   return (
     <AuthProvider>
-      <Router>
+      <Router
+        future={{
+          v7_fetcherPersist: true,
+          v7_normalizeFormMethod: true,
+          v7_partialHydration: true,
+          v7_relativeSplatPath: true,
+          v7_skipActionErrorRevalidation: true,
+          v7_startTransition: true
+        }}
+      >
         <Routes>
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<MainPage />} />

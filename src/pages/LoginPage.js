@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
-import { useAuth } from "../AuthContext";
-import { login as backendLogin } from "../apiService";
+import { useAuth } from "../contexts/AuthContext";
+import { login as backendLogin } from "../services/api";
 
-function LoginPage() {
+const LoginPage = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const { login } = useAuth();
@@ -43,6 +43,6 @@ function LoginPage() {
       <button type="submit">Login</button>
     </form>
   );
-}
+};
 
 export default LoginPage;

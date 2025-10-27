@@ -13,7 +13,7 @@ export const AuthProvider = ({ children }) => {
     // Check for stored token on initial load
     const storedToken = localStorage.getItem("authToken");
     if (storedToken && !user) {
-      setUser({ token: storedToken }); // Simplified user object
+      setUser({ token: storedToken });
     }
     setIsLoading(false);
   }, [user]);
@@ -29,7 +29,7 @@ export const AuthProvider = ({ children }) => {
   };
 
   if (isLoading) {
-    return null; // or a loading spinner
+    return null;
   }
 
   return (
