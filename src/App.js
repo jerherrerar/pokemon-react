@@ -29,7 +29,7 @@ function App() {
         <Routes>
           <Route element={<ProtectedRoute />}>
             <Route path="/" element={<MainPage />} />
-            <Route path="/detail" element={<DetailPage />} />
+            <Route path="/detail/:id" element={<DetailPage />} />
             <Route path="*" element={<Navigate to="/" replace />} />
           </Route>
           <Route path="/login" element={<LoginPage />} />

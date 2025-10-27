@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = "https://api.example.com";
+const API_BASE_URL = "https://pokeapi.co/api/v2/";
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
@@ -28,13 +28,43 @@ export const login = async (userData) => {
   //   }
 };
 
-export const getUsers = async () => {
+export const getPokemons = async () => {
   try {
-    const response = await apiClient.get("/users");
+    // Step 1: Get a list of 9 Pokemon
+    const listResponse = await apiClient.get("/pokemon?limit=9");
+    const pokemonList = listResponse.data.results;
+
+    // Step 2: Fetch full details for each Pokémon
+    const detailedPokemonPromises = pokemonList.map(async (pokemon) => {
+      const detailResponse = await axios.get(pokemon.url);
+      return detailResponse.data;
+    });
+
+    const detailedPokemonData = await Promise.all(detailedPokemonPromises);
+    return detailedPokemonData;
+  } catch (error) {
+    console.error("Error fetching Pokemons data:", error);
+    return [];
+  }
+};
+
+export const getPokemonById = async (id) => {
+  try {
+    const response = await apiClient.get(`/pokemon/${id}`);
     return response.data;
   } catch (error) {
-    console.error("Error fetching users:", error);
-    throw error; // Re-throw to allow component-level error handling
+    console.error("Error fetching Pokemon data:", error);
+    throw error;
+  }
+};
+
+export const getPokemonSpeciesById = async (id) => {
+  try {
+    const response = await apiClient.get(`/pokemon-species/${id}`);
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching PokemonSpecies data:", error);
+    throw error;
   }
 };
 

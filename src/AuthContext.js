@@ -12,7 +12,6 @@ export const AuthProvider = ({ children }) => {
   useEffect(() => {
     // Check for stored token on initial load
     const storedToken = localStorage.getItem("authToken");
-    console.log("authContext", storedToken);
     if (storedToken && !user) {
       setUser({ token: storedToken }); // Simplified user object
     }
